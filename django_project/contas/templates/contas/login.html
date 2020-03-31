@@ -1,0 +1,33 @@
+{% extends "contas\base.html" %}
+
+{% block content %}
+	<!-- register/login section -->
+
+
+	<div class="wrapper fadeInDown">
+	  <div id="formContent">
+	    <!-- Tabs Titles -->
+
+	    <!-- Icon -->
+
+	    <!-- Login Form -->
+	    <form action="submit", method="POST">{% csrf_token %}
+	      	<input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
+	      	<input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+	      	{% for message in messages %}
+	      		<strong>Error!</strong> 
+	      	{% endfor %}
+	      	<input type="submit" class="fadeIn fourth" value="Login">
+	    </form>
+
+	    <!-- Remind Passowrd -->
+	    <div id="formFooter">
+	      <a class="underlineHover" href="#">Forget Password?</a>
+	    </div>
+
+	  </div>
+	</div>		
+
+	<!-- register/login section end -->
+{% endblock %}
+

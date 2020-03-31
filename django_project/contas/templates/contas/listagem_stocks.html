@@ -1,0 +1,21 @@
+{% extends "contas\base.html" %}
+
+{% block content %}
+
+{% load stock_extras %}
+
+<div class="list-group">
+  {% for stock_name in 0|stock_list %}
+    <a href="{{stock_name}}" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{stock_name}}</h5>
+        <small>Atualizado</small>
+      </div>
+      <p class="mb-1">Descrição da ação</p>
+      <small>Predição positiva ou negativa.</small>
+    </a>
+  {% endfor %}
+</div>
+
+{% endblock %}
+

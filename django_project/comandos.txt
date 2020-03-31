@@ -1,0 +1,7 @@
+django-admin startproject "nome" (cria um projeto django na pasta atual)
+python manage.py startapp "nome" (cria um app django na pasta atual)
+python manage.py migrate (cria um banco de dados sqlite3, porém pode ser mudado)
+python manage.py runserver (roda o servidor django no ip padrão)
+python manage.py makemigrations (define como as classes/fields serão criadas no banco de dados)
+python manage.py migrate (muda a tabela de banco de dados para a nova definida)
+python manage.py flush (limpa todos os dados do banco de dados)

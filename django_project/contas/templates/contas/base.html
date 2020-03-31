@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="zxx">
+<head>
+	<title>Deep Investing</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Index Deep Investing">
+	<meta name="keywords" content="bolsa de valores, computacao, inteligencia artificial, mercado financeiro">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+ 
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+	{% load static %}
+	{% load stock_extras %}
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section clearfix">
+		<a href="/" class="site-logo">
+			<img src="{% static 'img/logo.png' %}" alt="">
+		</a>
+		{% if user.is_active %}
+			<div class="header-right">
+				<a href="/help" class="hr-btn">Ajuda</a>
+				<span>|</span>
+				<div class="user-panel">
+					<a href="/account/" class="My Account">{{ user }}</a>
+					<a href="/logout" class="register">Logout</a>
+				</div> 
+			</div>
+
+			<ul class="main-menu">
+				<li><a href="/index">Home</a></li>
+				<li><a href="/about">Sobre</a></li>
+				<li><a href="/stock">Ações</a>
+					<ul class="sub-menu">
+						{% for stock_name in 0|stock_list %}
+						<li><a href="/stock/{{ stock_name }}" >{{ stock_name }}</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li><a href="/news">Novidades</a></li>
+				<li><a href="/contact">Contato</a></li>
+			</ul>
+
+		{% else %}
+			<div class="header-right">
+				<a href="/help" class="hr-btn">Ajuda</a>
+				<span>|</span>
+				<div class="user-panel">
+					<a href="/login/" class="login">Login</a>
+					<a href="/register" class="register">Registre-se</a>
+				</div>
+			</div>
+
+			<ul class="main-menu">
+				<li><a href="/index">Home</a></li>
+				<li><a href="/about">Sobre</a></li>
+				<li><a href="#">Ações</a>
+					<ul class="sub-menu">
+						{% for stock_name in 0|stock_list %}
+						<li><a href="/stock/{{ stock_name }}" >{{ stock_name }}</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li><a href="/news">Novidades</a></li>
+				<li><a href="/contact">Contato</a></li>
+			</ul>
+
+		{% endif %}
+	</header>
+	<!-- Header section end -->
+
+	{% block content %}
+    {% endblock %}
+
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6 col-lg-7 order-lg-2">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="footer-widget">
+								<h2>Sobre nós</h2>
+								<ul>
+									<li><a href="/about">Desenvolvedores</a></li>
+									<li><a href="/about">Projeto</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="footer-widget">
+								<h2>Contato</h2>
+								<ul>
+									<li><a href="">Rede Social</a></li>
+									<li><a href="">Fale Conosco</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="footer-widget">
+								<h2></h2>
+								<ul>
+									<li><a href="">Newsletter</a></li>
+									<li><a href="">Careers</a></li>
+									<li><a href="">Press</a></li>
+									<li><a href="">Contact</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-5 order-lg-1">
+					<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+					<div class="social-links">
+						<a href=""><i class="fa fa-instagram"></i></a>
+						<a href=""><i class="fa fa-pinterest"></i></a>
+						<a href=""><i class="fa fa-facebook"></i></a>
+						<a href=""><i class="fa fa-twitter"></i></a>
+						<a href=""><i class="fa fa-youtube"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+	
+	<!--====== Javascripts & Jquery ======-->
+	<script type="text/javascript" src="/static/assets/javascript/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/static/assets/javascript/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/assets/javascript/jquery.slicknav.min.js"></script>
+	<script type="text/javascript" src="/static/assets/javascript/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="/static/assets/javascript/mixitup.min.js"></script>
+	<script type="text/javascript" src="/static/assets/javascript/main.js"></script>
+	
+	</body>
+</html>
