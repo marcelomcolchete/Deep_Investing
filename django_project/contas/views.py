@@ -106,29 +106,29 @@ def pagina_logout(request):
 	render(request,'contas/login.html',data)
 	return redirect('url_login')
 
-# -- Stocks -- #
-
 def listagem_stocks(request):
 	data={}
 	return render(request,'contas/listagem_stocks.html',data)
 
-def BIDI4_dados_historicos(request):
+# -- Stocks -- #
+
+def stock_dados_historicos(request,stock_name):
 	data={}
-	stock_selecionado = Stock.objects.get(nome='BIDI4.SA')
+	stock_selecionado = Stock.objects.get(nome=stock_name)
 	ultimo_stock = stock_selecionado.dados_historicos.all().last()
+	ultimo_stock_dia_anterior1 = stock_selecionado.dados_historicos.all().reverse()[1:2][0].fechamento_ajustado
 	stock_dados_historicos = stock_selecionado.dados_historicos.all().reverse()
-	ultimo_fechamento_ajustado = round(ultimo_stock.fechamento_ajustado,2)
-	ultima_abertura = ultimo_stock.abertura
-	diferenca_abertura_fechamento = round(ultimo_fechamento_ajustado - ultima_abertura,2)
-	diferenca_porcentagem = round((diferenca_abertura_fechamento*100)/ultima_abertura,2)
-	
+	ultimo_fechamento_ajustado = ultimo_stock.fechamento_ajustado
+	diferenca_abertura_fechamento = round(ultimo_fechamento_ajustado - ultimo_stock_dia_anterior1,2)
+	diferenca_porcentagem = round((diferenca_abertura_fechamento*100)/ultimo_stock_dia_anterior1,2)
+
 	# Passagem de data pro navegador
 
 	data['stock_name'] = stock_selecionado.nome
 	data['historical_stock'] = stock_dados_historicos
 
-	data['stock_last_price'] = ultimo_fechamento_ajustado
-	data['stock_last_open'] = round(ultima_abertura,2)
+	data['stock_last_price'] = round(ultimo_fechamento_ajustado,2)
+	data['stock_last_open'] = round(ultimo_stock.abertura,2)
 	data['stock_last_max'] = round(ultimo_stock.maximo,2)
 	data['stock_last_min'] = round(ultimo_stock.minimo,2)
 	data['stock_last_volume'] = round(ultimo_stock.volume,2)
@@ -138,25 +138,23 @@ def BIDI4_dados_historicos(request):
 
 	return render(request,'contas/stocks/dados_historicos.html',data)
 
-def BIDI4_resumo(request):
+def stock_resumo(request,stock_name):
 	data={}
-	stock_selecionado = Stock.objects.get(nome='BIDI4.SA')
+	stock_selecionado = Stock.objects.get(nome=stock_name)
 	ultimo_stock = stock_selecionado.dados_historicos.all().last()
-	stock_dados_historicos = stock_selecionado.dados_historicos.all().reverse()
-	ultimo_fechamento_ajustado = round(ultimo_stock.fechamento_ajustado,2)
-	ultima_abertura = ultimo_stock.abertura
-	diferenca_abertura_fechamento = round(ultimo_fechamento_ajustado - ultima_abertura,2)
-	diferenca_porcentagem = round((diferenca_abertura_fechamento*100)/ultima_abertura,2)
+	ultimo_stock_dia_anterior1 = stock_selecionado.dados_historicos.all().reverse()[1:2][0].fechamento_ajustado
+	stock_dados_historicos = stock_selecionado.dados_historicos.all().reverse()[0:60]
+	ultimo_fechamento_ajustado = ultimo_stock.fechamento_ajustado
+	diferenca_abertura_fechamento = round(ultimo_fechamento_ajustado - ultimo_stock_dia_anterior1,2)
+	diferenca_porcentagem = round((diferenca_abertura_fechamento*100)/ultimo_stock_dia_anterior1,2)
 
-
-	
 	# Passagem de data pro navegador
 
 	data['stock_name'] = stock_selecionado.nome
 	data['historical_stock'] = stock_dados_historicos
 
-	data['stock_last_price'] = ultimo_fechamento_ajustado
-	data['stock_last_open'] = round(ultima_abertura,2)
+	data['stock_last_price'] = round(ultimo_fechamento_ajustado,2)
+	data['stock_last_open'] = round(ultimo_stock.abertura,2)
 	data['stock_last_max'] = round(ultimo_stock.maximo,2)
 	data['stock_last_min'] = round(ultimo_stock.minimo,2)
 	data['stock_last_volume'] = round(ultimo_stock.volume,2)

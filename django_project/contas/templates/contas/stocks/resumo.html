@@ -13,31 +13,29 @@
 
 			cont1 = 0; // limite de dias
 			{% for historical_item in historical_stock %}
-				if (cont1 < 60){
-					ano = "{{ historical_item.data.year }}";
-					mes = "{{ historical_item.data.month }}";
-					dia = "{{ historical_item.data.day }}";
-					abertura = "{{ historical_item.abertura }}";
-					fechamento = "{{ historical_item.fechamento_ajustado }}";
-					maximo = "{{ historical_item.maximo }}";
-					minimo = "{{ historical_item.minimo }}";
+				ano = "{{ historical_item.data.year }}";
+				mes = "{{ historical_item.data.month }}";
+				dia = "{{ historical_item.data.day }}";
+				abertura = "{{ historical_item.abertura }}";
+				fechamento = "{{ historical_item.fechamento_ajustado }}";
+				maximo = "{{ historical_item.maximo }}";
+				minimo = "{{ historical_item.minimo }}";
 
-					dataPoint1.push({
-						x: new Date(
-							parseInt(ano),
-							parseInt(mes),
-							parseInt(dia)
-						),
-						y: [
-							parseFloat(abertura),
-							parseFloat(maximo),
-							parseFloat(minimo),
-							parseFloat(fechamento)
-						]
-					});
+				dataPoint1.push({
+					x: new Date(
+						parseInt(ano),
+						parseInt(mes),
+						parseInt(dia)
+					),
+					y: [
+						parseFloat(abertura),
+						parseFloat(maximo),
+						parseFloat(minimo),
+						parseFloat(fechamento)
+					]
+				});
 
-					cont1++
-				}
+				cont1++
 			{% endfor %}
 
 			// Configurações do gráfico
@@ -79,22 +77,20 @@
 
 			cont2 = 0; // limite de dias
 			{% for historical_item in historical_stock %}
-				if(cont2 < 60){
-					ano = "{{ historical_item.data.year }}";
-					mes = "{{ historical_item.data.month }}";
-					dia = "{{ historical_item.data.day }}";
-					fechamento = "{{ historical_item.fechamento_ajustado }}";
+				ano = "{{ historical_item.data.year }}";
+				mes = "{{ historical_item.data.month }}";
+				dia = "{{ historical_item.data.day }}";
+				fechamento = "{{ historical_item.fechamento_ajustado }}";
 
-					dataPoint2.push({
-						x: new Date(
-							parseInt(ano),
-							parseInt(mes),
-							parseInt(dia)
-						),
-						y: parseFloat(fechamento)
-					});
-					cont2++
-				}
+				dataPoint2.push({
+					x: new Date(
+						parseInt(ano),
+						parseInt(mes),
+						parseInt(dia)
+					),
+					y: parseFloat(fechamento)
+				});
+				cont2++
 			{% endfor %}
 
 			// Configurações do gráfico	
