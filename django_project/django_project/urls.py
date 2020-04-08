@@ -19,7 +19,7 @@ import contas.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.user_home),
+    path('', views.user_home, name='url_home'),
     path('index', views.home, name='url_index'),
     path('contact', views.contact),
     path('news', views.news),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('user', views.user_perfil, name='url_perfil'),
     # -- Stocks -- #
     path('stock/', views.listagem_stocks, name='url_stocks'),
-    path('stock/BIDI4.SA', views.BIDI4, name='url_BIDI4'),
-    path('stock/VALE3.SA', views.VALE3, name='url_VALE3')
-
+    path('stock/BIDI4.SA', views.BIDI4_resumo),
+    path('stock/BIDI4.SA/dados_historicos', views.BIDI4_dados_historicos),
+    path('stock/BIDI4.SA/resumo', views.BIDI4_resumo)
 ]

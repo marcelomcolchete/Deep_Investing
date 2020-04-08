@@ -14,4 +14,4 @@ class Command(BaseCommand):
 		while HistoricalStock.objects.count():
 			ids = HistoricalStock.objects.values_list('pk', flat=True)[:100]
 			HistoricalStock.objects.filter(pk__in = ids).delete()
-		print('All '+str(number_of_stocks)+' deleteds.')
+		print('All '+str(number_of_stocks)+' stocks deleteds.')

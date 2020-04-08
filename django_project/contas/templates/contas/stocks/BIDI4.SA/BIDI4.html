@@ -1,0 +1,47 @@
+{% extends "contas\base\stockbase.html" %}
+
+{% block content %}
+
+	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #08192d;">
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+				<a class="nav-item nav-link" href="#">Resumo</a>	
+				<a class="nav-item nav-link active" href="#">Dados Históricos<span class="sr-only">(Página atual)</span></a>
+				<a class="nav-item nav-link" href="#">Analise Gráfica</a>
+				<a class="nav-item nav-link" href="#">Analise Fundamentalista</a>
+			</div>
+		</div>
+	</nav>
+
+	<div>
+		<table class="table table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Data</th>
+					<th scope="col">Abertura</th>
+					<th scope="col">Fechamento</th>
+					<th scope="col">Fechamento Ajtd</th>
+					<th scope="col">Maximo</th>
+					<th scope="col">Minimo</th>
+					<th scope="col">Volume</th>			
+				</tr>
+			</thead>
+			<tbody>
+				{% for historical_item in historical_stock %}
+					<tr>
+						<th scope="row">{{ historical_item.data }}</th>
+						<td>{{ historical_item.abertura }}</td>
+						<td>{{ historical_item.fechamento }}</td>
+						<td>{{ historical_item.fechamento_ajustado }}</td>
+						<td>{{ historical_item.maximo }}</td>
+						<td>{{ historical_item.minimo }}</td>
+						<td>{{ historical_item.volume }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
+

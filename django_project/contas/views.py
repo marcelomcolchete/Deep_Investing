@@ -68,13 +68,11 @@ def submit_register(request):
 		email = request.POST.get('email')
 		try:
 			username_user = User.objects.get(username=username)
-			print('Username já cadastrado')
 			return redirect('url_register')
 		except User.DoesNotExist:
 			username_user = None
 		try:
 			email_user = User.objects.get(email=email)
-			print('Email já cadastrado')
 			return redirect('url_register')
 		except Exception as e:
 			email_user = None
@@ -93,18 +91,13 @@ def submit_login(request):
 	if request.POST:
 		username_login = request.POST.get('username')
 		password_login = request.POST.get('password')
-		print(username_login)
-		print(password_login)
 		user = authenticate(username=username_login,password=password_login)
-		print(user)
 		if user is not None:
-			print('Logou')
 			login(request,user)
-			render(request,'contas/index.html',data)
-			return redirect('url_index')
+			#render(request,'contas/index.html',data)
+			return redirect('url_home')
 		else:
 			messages.error(request, 'Usuário e senha inválidos. Favor tentar novamente.')
-			print('Nao logou')
 	return redirect('url_login')
 
 def pagina_logout(request):
@@ -113,22 +106,62 @@ def pagina_logout(request):
 	render(request,'contas/login.html',data)
 	return redirect('url_login')
 
-# -- Stocks --
+# -- Stocks -- #
 
 def listagem_stocks(request):
 	data={}
 	return render(request,'contas/listagem_stocks.html',data)
 
-def BIDI4(request):
+def BIDI4_dados_historicos(request):
 	data={}
 	stock_selecionado = Stock.objects.get(nome='BIDI4.SA')
-	data['stock_name'] = "BIDI4.SA"
-	data['historical_stock'] = stock_selecionado.dados_historicos.all()
-	return render(request,'contas/BIDI4.SA.html',data)
+	ultimo_stock = stock_selecionado.dados_historicos.all().last()
+	stock_dados_historicos = stock_selecionado.dados_historicos.all().reverse()
+	ultimo_fechamento_ajustado = round(ultimo_stock.fechamento_ajustado,2)
+	ultima_abertura = ultimo_stock.abertura
+	diferenca_abertura_fechamento = round(ultimo_fechamento_ajustado - ultima_abertura,2)
+	diferenca_porcentagem = round((diferenca_abertura_fechamento*100)/ultima_abertura,2)
+	
+	# Passagem de data pro navegador
 
-def VALE3(request):
+	data['stock_name'] = stock_selecionado.nome
+	data['historical_stock'] = stock_dados_historicos
+
+	data['stock_last_price'] = ultimo_fechamento_ajustado
+	data['stock_last_open'] = round(ultima_abertura,2)
+	data['stock_last_max'] = round(ultimo_stock.maximo,2)
+	data['stock_last_min'] = round(ultimo_stock.minimo,2)
+	data['stock_last_volume'] = round(ultimo_stock.volume,2)
+
+	data['stock_diference'] = diferenca_abertura_fechamento
+	data['stock_diferecen_percent'] = diferenca_porcentagem
+
+	return render(request,'contas/stocks/dados_historicos.html',data)
+
+def BIDI4_resumo(request):
 	data={}
-	stock_selecionado = Stock.objects.get(nome='VALE3.SA')
-	data['stock_name'] = "VALE3.SA"
-	data['historical_stock'] = stock_selecionado.dados_historicos.all()
-	return render(request,'contas/VALE3.SA.html',data)
+	stock_selecionado = Stock.objects.get(nome='BIDI4.SA')
+	ultimo_stock = stock_selecionado.dados_historicos.all().last()
+	stock_dados_historicos = stock_selecionado.dados_historicos.all().reverse()
+	ultimo_fechamento_ajustado = round(ultimo_stock.fechamento_ajustado,2)
+	ultima_abertura = ultimo_stock.abertura
+	diferenca_abertura_fechamento = round(ultimo_fechamento_ajustado - ultima_abertura,2)
+	diferenca_porcentagem = round((diferenca_abertura_fechamento*100)/ultima_abertura,2)
+
+
+	
+	# Passagem de data pro navegador
+
+	data['stock_name'] = stock_selecionado.nome
+	data['historical_stock'] = stock_dados_historicos
+
+	data['stock_last_price'] = ultimo_fechamento_ajustado
+	data['stock_last_open'] = round(ultima_abertura,2)
+	data['stock_last_max'] = round(ultimo_stock.maximo,2)
+	data['stock_last_min'] = round(ultimo_stock.minimo,2)
+	data['stock_last_volume'] = round(ultimo_stock.volume,2)
+
+	data['stock_diference'] = diferenca_abertura_fechamento
+	data['stock_diferecen_percent'] = diferenca_porcentagem
+
+	return render(request,'contas/stocks/resumo.html',data)

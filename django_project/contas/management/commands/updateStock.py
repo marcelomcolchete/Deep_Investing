@@ -16,6 +16,7 @@ class Command(BaseCommand):
 		data_atual = str(datetime.date.today())
 
 		if (data_atual != ultima_data):
+			print('Stock '+str(stock_name)+' update:')
 			dataFrame = downloadAcao(stock_name,ultima_data).values
 			for i in range(0,len(dataFrame)):
 				data_dataFrame = datetime.datetime.strptime(dataFrame[i][0], "%Y-%m-%d").date()
@@ -25,4 +26,4 @@ class Command(BaseCommand):
 				stock_selecionado.save()
 				print('HistoricalStock '+str(data_dataFrame)+' add successfully.')
 		else:
-			print('Stock '+str(Stock.objects.get(nome=stock_name).pk)+' already been updated.')
+			print('Stock '+str(stock_name)+' already been updated.')

@@ -1,0 +1,44 @@
+{% extends "contas\base\stockbase.html" %}
+
+{% block content %}
+
+	<div class="container-fluid" style="background-color: #08192d;">	
+		<div class="row">
+			<a class="col-sm-3 border-right border-left" href="/stock/{{ stock_name }}/resumo" style="color: #FFFFFF">Resumo</a>	
+			<a class="col-sm-3 border-right" href="/stock/{{ stock_name }}/dados_historicos" style="color: #fc0254">Dados Históricos</a>
+			<a class="col-sm-3 border-right" href="/stock/{{ stock_name }}/graficos" style="color: #FFFFFF">Analise Gráfica</a>
+			<a class="col-sm-3 border-right" href="/stock/{{ stock_name }}/fundamentalista" style="color: #FFFFFF">Analise Fundamentalista</a>
+		</div>
+	</div>
+
+	<div>
+		<table class="table table-bordered table-sm">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Data</th>
+					<th scope="col">Abertura</th>
+					<th scope="col">Fechamento</th>
+					<th scope="col">Fechamento Ajtd</th>
+					<th scope="col">Maximo</th>
+					<th scope="col">Minimo</th>
+					<th scope="col">Volume</th>			
+				</tr>
+			</thead>
+			<tbody>
+				{% for historical_item in historical_stock %}
+					<tr>
+						<th scope="row">{{ historical_item.data }}</th>
+						<td>{{ historical_item.abertura }}</td>
+						<td>{{ historical_item.fechamento }}</td>
+						<td>{{ historical_item.fechamento_ajustado }}</td>
+						<td>{{ historical_item.maximo }}</td>
+						<td>{{ historical_item.minimo }}</td>
+						<td>{{ historical_item.volume }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
+

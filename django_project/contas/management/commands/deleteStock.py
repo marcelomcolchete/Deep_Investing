@@ -14,6 +14,6 @@ class Command(BaseCommand):
 		dados_historicos = stock_selecionado.dados_historicos.all()
 		for dado in dados_historicos:
 			dado.delete()
-		print('Stock '+str(Stock.objects.get(nome=stock_name).pk)+' deleted.')
 		stock_selecionado.delete()
+		print('Stock '+str(stock_name)+' deleted.')
 
