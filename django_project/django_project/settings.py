@@ -20,10 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@7fw0fvzu+5*ad!r!wyiey1c$9-3d&5txu!!(b7_g15!cj##x0'
+# SECRET_KEY = '@7fw0fvzu+5*ad!r!wyiey1c$9-3d&5txu!!(b7_g15!cj##x0'
+
+import os
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '@7fw0fvzu+5*ad!r!wyiey1c$9-3d&5txu!!(b7_g15!cj##x0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = []
 
@@ -118,6 +123,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "django_project/contas/static"),
+    # '/var/www/static/',
+)
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000 # higher than the count of fields
