@@ -73,6 +73,8 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (r'/home/marcelocolchete/DeepInvesting/django_project/contas/templates',)
+
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
